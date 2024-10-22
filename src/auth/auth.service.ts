@@ -26,7 +26,16 @@ export class AuthService {
     };
   }
 
+  /*
   async register(email: string, password: string, role: string) {
     return this.usersService.create(email, password, role);
-  }
+  }*/
+    async register(email: string, password: string, role: string) {
+      // Hash the password before saving it
+      const hashedPassword = await bcrypt.hash(password, 10);
+      
+      // Pass the hashed password to the create method
+      return this.usersService.create(email, hashedPassword, role);
+    }
+    
 }
